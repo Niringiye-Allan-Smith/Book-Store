@@ -1,6 +1,9 @@
-package com.example.bookstore.Models;
+package com.example.bookstore.DTOS.Requests;
 
-import jakarta.persistence.Entity;
+
+import com.example.bookstore.Models.Author;
+import com.example.bookstore.Models.Category;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,13 +12,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import java.util.Set;
-@Entity
-public class Book{
 
+public class bookRequest {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+ private Long id;
     @NotBlank
     private String title;
 
@@ -39,17 +41,10 @@ public class Book{
     private Author author;
 
     // Constructors
-    public Book() {
+    public void Book() {
         // Default constructor
     }
 
-    public Book(Long id, String title, Author author, double price, String isbn) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.price = price;
-        this.isbn = isbn;
-    }
 
     // Getters and Setters
     public Long getId() {
@@ -92,8 +87,4 @@ public class Book{
         this.isbn = isbn;
     }
 
-    public Object gaetShortName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getShortName'");
-    }
 }

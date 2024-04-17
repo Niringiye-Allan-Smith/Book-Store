@@ -1,34 +1,35 @@
 package com.example.bookstore.Services;
 
-import org.apache.el.stream.Optional;
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.bookstore.DTOS.Payloads.BookPayload;
 import com.example.bookstore.Models.Book;
 import com.example.bookstore.Repositories.BookRepository;
+import java.util.*;
 
 @Service
 public class bookService {
-    	@Autowired
+	@Autowired
 	BookRepository bookRepository;
 
-    	/*
+	/*
 	 * Getting all books
 	 */
 	public List<BookPayload> getAllBook() {
 
-		List<BookPayload> books = new ArrayList<>(); 
+		List<BookPayload> books = new ArrayList<>();
 
 		for (Book book : bookRepository.findAll()) {
 
 			BookPayload payload = new BookPayload();
 
 			payload.setId(book.getId());
-			payload.setName(book.getName());
-			payload.setShortName(book.getShortName());
-
+			payload.setTitle(book.getTitle());
+			payload.setIsbn(book.getIsbn());
+			payload.setPrice(book.getPrice());
+			payload.setAuthor();
+		
 			books.add(payload);
 
 		}
@@ -38,62 +39,62 @@ public class bookService {
 	/*
 	 * Creating a book
 	 */
-	public ResponseEntity<?> createBook(BookRequest request) {
-		if (request.getName() != null) {
+// 	public ResponseEntity<?> createBook(bookRequest request) {
+// 		if (request.getName() != null) {
 
-			Optional<Book> existingAffliation = request.getId() != null
-					? bookRepository.findById(request.getId())
-					: Optional.empty();
+// 			Optional<Book> existingBook = request.getId() != null
+// 					? bookRepository.findById(request.getId())
+// 					: Optional.empty();
 
-			if (!existingAffliation.isPresent() && bookRepository.existsByName(request.getName())) {
-				return new ResponseEntity<>(new ApiResponse(false, "Book Exists"), HttpStatus.BAD_REQUEST);
-			}
+// 			if (!existingBook.isPresent() && bookRepository.existsByName(request.getName())) {
+// 				return new ResponseEntity<>(new ApiResponse(false, "Book Exists"), HttpStatus.BAD_REQUEST);
+// 			}
 
-			Book book = existingBook.isPresent() ? existingBook.get()
-					: new Book();
-			book.setId(request.getId());
-			book.setName(request.getName());
-			book.setShortName(request.getShortName());
-			
-			Book result = bookRepository.save(book);
+// 			Book book = existingBook.isPresent() ? existingBook.get()
+// 					: new Book();
+// 			book.setId(request.getId());
+// 			book.setName(request.getName());
+// 			book.setShortName(request.getShortName());
 
-			if (result != null) {
-				System.out.println("Book created");
-				return new ResponseEntity<>(new ApiResponse(true, "Book Created"), HttpStatus.OK);
-			}
+// 			Book result = bookRepository.save(book);
 
-		}
-		System.out.println("Not Created created");
-		return new ResponseEntity<>(new ApiResponse(false, "Book Not Created"), HttpStatus.BAD_REQUEST);
-		
-	}
+// 			if (result != null) {
+// 				System.out.println("Book created");
+// 				return new ResponseEntity<>(new ApiResponse(true, "Book Created"), HttpStatus.OK);
+// 			}
 
-	public ResponseEntity<?> deleteBook(BookRequest request) {
-		if (request.getId() != null) {
-			try {
-				bookRepository.deleteById(request.getId());
+// 		}
+// 		System.out.println("Not Created created");
+// 		return new ResponseEntity<>(new ApiResponse(false, "Book Not Created"), HttpStatus.BAD_REQUEST);
 
-				return new ResponseEntity<>(new ApiResponse(true, "Book Deleted"), HttpStatus.OK);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+// 	}
 
-		}
+// 	public ResponseEntity<?> deleteBook(bookRequest request) {
+// 		if (request.getId() != null) {
+// 			try {
+// 				bookRepository.deleteById(request.getId());
 
-		return new ResponseEntity<>(new ApiResponse(false, "Book Not Deleted"), HttpStatus.BAD_REQUEST);
+// 				return new ResponseEntity<>(new ApiResponse(true, "Book Deleted"), HttpStatus.OK);
+// 			} catch (Exception e) {
+// 				// TODO: handle exception
+// 			}
 
-	}
-	
-	public ResponseEntity<?> getBookById(Long id) {
-	    Optional<Book> optionalBook = bookRepository.findById(id);
-	    if (!optionalBook.isPresent()) {
-	        return new ResponseEntity<>(new ApiResponse(false, "Book not found with ID: " + id), HttpStatus.NOT_FOUND);
-	    }
-	    Book book = optionalBook.get();
-	    BookPayload bookPayload = new AffiliationPayload();
-	    bookPayload.setId(book.getId());
-	    bookPayload.setName(book.getName());
-	    bookPayload.setShortName(book.getShortName());
-	    return new ResponseEntity<>(bookPayload, HttpStatus.OK);
-	}
+// 		}
+
+// 		return new ResponseEntity<>(new ApiResponse(false, "Book Not Deleted"), HttpStatus.BAD_REQUEST);
+
+// 	}
+
+// 	public ResponseEntity<?> getBookById(Long id) {
+// 		Optional<Book> optionalBook = bookRepository.findById(id);
+// 		if (!optionalBook.isPresent()) {
+// 			return new ResponseEntity<>(new ApiResponse(false, "Book not found with ID: " + id), HttpStatus.NOT_FOUND);
+// 		}
+// 		Book book = optionalBook.get();
+// 		BookPayload bookPayload = new BookPayload();
+// 		bookPayload.setId(book.getId());
+// 		bookPayload.setName(book.getName());
+// 		bookPayload.setShortName(book.getShortName());
+// 		return new ResponseEntity<>(bookPayload, HttpStatus.OK);
+// 	}
 }

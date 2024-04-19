@@ -18,7 +18,7 @@ MySQL: Used as the database to store book, author, category, and order informati
 Clone the repository:
 bash
 ## Copy code
-git clone https://github.com/yourusername/bookstore-api.git
+git clone (https://github.com/Niringiye-Allan-Smith/Book-Store)-api.git
 ## Configure the Database:
 Install MySQL if not already installed.
 Create a new database named bookstore.

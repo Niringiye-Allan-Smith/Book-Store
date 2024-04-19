@@ -13,19 +13,6 @@ Spring Data JPA: Simplifies data access by providing a repository abstraction ov
 Spring Web: Enables building web applications, including RESTful services.
 Swagger UI: Automatically generates interactive API documentation for easy exploration.
 MySQL: Used as the database to store book, author, category, and order information.
-# Getting Started
-## To get started with the project, follow these steps:
-Clone the repository:
-bash
-## Copy code
-git clone (https://github.com/Niringiye-Allan-Smith/Book-Store)-api.git
-## Configure the Database:
-Install MySQL if not already installed.
-Create a new database named bookstore.
-Update the database configurations in application.properties if necessary.
-## Build and Run the Application:
-cd bookstore-api
-./mvnw spring-boot:run
-Explore the API Documentation:Once the application is running, navigate to http://localhost:8080/swagger-ui.html in your web browser to explore the API endpoints and interact with them using Swagger UI.
+
 # Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
